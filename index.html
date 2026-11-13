@@ -1,3 +1,4 @@
+<!-- COLE AQUI O CÓDIGO COMPLETO QUE EU TE ENVIEI ANTES -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -83,7 +84,6 @@
         </section>
 
         <section id="vagasContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            <!-- Vagas carregadas via JS -->
         </section>
 
         <section class="mt-12 card rounded-xl p-6">
@@ -127,49 +127,19 @@
 
     <script>
         const vagas = [
-            {
-                id: 1, empresa: "IBM", titulo: "Estágio em Tecnologia em Redes de Computadores",
-                publicacao: "11/06/2026", dias: 53, local: "São Paulo — SP", modelo: "Presencial",
-                area: "Redes", bolsa: "A combinar", desc: "Infraestrutura de redes, monitoramento, troubleshooting",
-                link: "https://vagasflix.com/vaga/estagio-em-tecnologia-em-redes-de-computadores-sao-paulo-sp-2/", tags: ["estagio", "redes"]
-            },
-            {
-                id: 2, empresa: "Governo do Estado de SP / CIEE", titulo: "Estágio Programa ProATI — Tecnologia da Informação",
-                publicacao: "03/06/2026", dias: 61, local: "Jacareí e região — SP", modelo: "Presencial",
-                area: "Suporte TI / Infraestrutura", bolsa: "Até R$ 1.600,00", desc: "Atuação em escolas estaduais — manutenção de ambientes digitais",
-                link: "https://www.agenciasp.sp.gov.br/educacao/10-mil-vagas-de-estagio-sp-tecnologia/", tags: ["estagio", "ti", "redes"]
-            },
-            {
-                id: 3, empresa: "SOCICAM Administração, Projetos e Representações Ltda", titulo: "Estagiário de TI",
-                publicacao: "28/07/2026", dias: 26, local: "São Paulo — SP", modelo: "Híbrido",
-                area: "Suporte TI", bolsa: "A combinar", desc: "Suporte a usuários, manutenção, redes básicas, Windows/Linux",
-                link: "https://temosvagasbr.com/vagas/sp-sao-paulo-estagiario-de-ti/", tags: ["estagio", "ti"]
-            },
-            {
-                id: 4, empresa: "IFSP — Instituto Federal de SP", titulo: "Estagiário — Processo Seletivo Edital 30/2026",
-                publicacao: "21/05/2026", dias: 74, local: "Jacareí — SP", modelo: "Presencial",
-                area: "TI / Administrativo", bolsa: "Conforme edital", desc: "Apoio em setores acadêmicos e administrativos do campus",
-                link: "https://jcr.ifsp.edu.br/index.php/component/content/article/17-ultimas-noticias/2956-inscricoes-abertas-processo-seletivo-simplificado-para-recrutamento-de-estagiarios-ifsp-jacarei", tags: ["estagio", "ti"]
-            },
-            {
-                id: 5, empresa: "PoP-SC / RNP", titulo: "Estágio em Redes de Computadores — Edital 2026",
-                publicacao: "08/10/2026", dias: 36, local: "Florianópolis — SC", modelo: "Presencial",
-                area: "Redes / Pesquisa", bolsa: "R$ 1.500,00", desc: "Monitoramento de enlaces WAN/MAN, DNS, NTP, VPN — projetos de P&D",
-                link: "https://pop-sc.rnp.br/home/noticias/20261009/485", tags: ["estagio", "redes"]
-            },
-            {
-                id: 6, empresa: "CAEEP Estágios", titulo: "Estágio em Infraestrutura e Projetos Industriais",
-                publicacao: "02/11/2026", dias: 11, local: "São José dos Campos — SP", modelo: "Presencial",
-                area: "TI / Infraestrutura", bolsa: "R$ 1.300,00 + Aux. Transporte", desc: "Auxiliar em projetos de infraestrutura e desenvolvimento",
-                link: "https://homologacaoit.unip.br/estagiosecarreiras/vagas-exatas.aspx", tags: ["estagio", "ti"]
-            }
+            { id: 1, empresa: "IBM", titulo: "Estágio em Tecnologia em Redes de Computadores", publicacao: "11/06/2026", dias: 53, local: "São Paulo — SP", modelo: "Presencial", area: "Redes", bolsa: "A combinar", desc: "Infraestrutura de redes, monitoramento, troubleshooting", link: "https://vagasflix.com/vaga/estagio-em-tecnologia-em-redes-de-computadores-sao-paulo-sp-2/", tags: ["estagio", "redes"] },
+            { id: 2, empresa: "Governo do Estado de SP / CIEE", titulo: "Estágio Programa ProATI — Tecnologia da Informação", publicacao: "03/06/2026", dias: 61, local: "Jacareí e região — SP", modelo: "Presencial", area: "Suporte TI / Infraestrutura", bolsa: "Até R$ 1.600,00", desc: "Atuação em escolas estaduais — manutenção de ambientes digitais", link: "https://www.agenciasp.sp.gov.br/educacao/10-mil-vagas-de-estagio-sp-tecnologia/", tags: ["estagio", "ti", "redes"] },
+            { id: 3, empresa: "SOCICAM Administração, Projetos e Representações Ltda", titulo: "Estagiário de TI", publicacao: "28/07/2026", dias: 26, local: "São Paulo — SP", modelo: "Híbrido", area: "Suporte TI", bolsa: "A combinar", desc: "Suporte a usuários, manutenção, redes básicas, Windows/Linux", link: "https://temosvagasbr.com/vagas/sp-sao-paulo-estagiario-de-ti/", tags: ["estagio", "ti"] },
+            { id: 4, empresa: "IFSP — Instituto Federal de SP", titulo: "Estagiário — Processo Seletivo Edital 30/2026", publicacao: "21/05/2026", dias: 74, local: "Jacareí — SP", modelo: "Presencial", area: "TI / Administrativo", bolsa: "Conforme edital", desc: "Apoio em setores acadêmicos e administrativos do campus", link: "https://jcr.ifsp.edu.br/index.php/component/content/article/17-ultimas-noticias/2956-inscricoes-abertas-processo-seletivo-simplificado-para-recrutamento-de-estagiarios-ifsp-jacarei", tags: ["estagio", "ti"] },
+            { id: 5, empresa: "PoP-SC / RNP", titulo: "Estágio em Redes de Computadores — Edital 2026", publicacao: "08/10/2026", dias: 36, local: "Florianópolis — SC", modelo: "Presencial", area: "Redes / Pesquisa", bolsa: "R$ 1.500,00", desc: "Monitoramento de enlaces WAN/MAN, DNS, NTP, VPN — projetos de P&D", link: "https://pop-sc.rnp.br/home/noticias/20261009/485", tags: ["estagio", "redes"] },
+            { id: 6, empresa: "CAEEP Estágios", titulo: "Estágio em Infraestrutura e Projetos Industriais", publicacao: "02/11/2026", dias: 11, local: "São José dos Campos — SP", modelo: "Presencial", area: "TI / Infraestrutura", bolsa: "R$ 1.300,00 + Aux. Transporte", desc: "Auxiliar em projetos de infraestrutura e desenvolvimento", link: "https://homologacaoit.unip.br/estagiosecarreiras/vagas-exatas.aspx", tags: ["estagio", "ti"] }
         ];
 
         function renderVagas(filter = 'all') {
             const container = document.getElementById('vagasContainer');
             const filtradas = filter === 'all' ? vagas : vagas.filter(v => v.tags.includes(filter));
             container.innerHTML = filtradas.map(vaga => `
-                <div class="card rounded-xl p-5" data-tags="${vaga.tags.join(',')}">
+                <div class="card rounded-xl p-5">
                     <div class="flex justify-between items-start mb-3">
                         <span class="text-sm font-semibold text-sky-300">${vaga.empresa}</span>
                         <span class="badge-new text-xs px-2 py-0.5 rounded-full text-white">${vaga.dias} dias</span>
@@ -180,7 +150,7 @@
                         <p><i class="fa fa-tag w-4 text-sky-400"></i> ${vaga.area}</p>
                         <p><i class="fa fa-money w-4 text-emerald-400"></i> ${vaga.bolsa}</p>
                     </div>
-                    <p class="text-sm text-slate-300 mb-4 line-clamp-2">${vaga.desc}</p>
+                    <p class="text-sm text-slate-300 mb-4">${vaga.desc}</p>
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-slate-500">Publicado: ${vaga.publicacao}</span>
                         <a href="${vaga.link}" target="_blank" class="btn-apply px-4 py-1.5 rounded-lg text-sm font-medium text-white">Inscrever-se <i class="fa fa-external-link ml-1 text-xs"></i></a>
@@ -194,19 +164,4 @@
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('bg-sky-600/30','text-sky-300','active'));
                 btn.classList.add('bg-sky-600/30','text-sky-300','active');
-                renderVagas(btn.dataset.filter);
-            });
-        });
-
-        window.onload = function() {
-            renderVagas();
-            const ctxAreas = document.getElementById('chartAreas').getContext('2d');
-            const chartAreas = new Chart(ctxAreas, {
-                type: 'bar',
-                data: {
-                    labels: ['Redes', 'Suporte TI', 'Infraestrutura', 'Pesquisa/Projetos'],
-                    datasets: [{ label: 'Oportunidades', data: [3, 4, 2, 1], backgroundColor: ['#38bdf8','#22c55e','#a855f7','#f59e0b'], borderRadius: 8 }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(148,163,184,0.1)' } }, x: { ticks: { color: '#94a3b8' }, grid: { display: false } } } }
-            });
-            const ctxLocal = document.getElementById('chartLocal').
+                render
