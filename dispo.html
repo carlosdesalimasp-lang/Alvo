@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oportunidades TI — Carlos De Sá Lima</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); min-height: 100vh; }
+        .card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(148, 163, 184, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.3); }
+        .badge-new { background: linear-gradient(90deg, #10b981, #059669); }
+        .pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .gradient-text { background: linear-gradient(90deg, #38bdf8, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-link:hover { background: rgba(56,189,248,0.1); }
+        .btn-apply { background: linear-gradient(90deg, #0284c7, #3b82f6); transition: all 0.3s ease; }
+        .btn-apply:hover { background: linear-gradient(90deg, #0369a1, #2563eb); transform: scale(1.02); }
+        .stat-card { background: linear-gradient(135deg, rgba(30,64,175,0.2), rgba(124,58,237,0.1)); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    </style>
+</head>
+<body class="text-gray-100">
+    <header class="border-b border-slate-700/50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+                <h1 class="text-2xl font-bold gradient-text">🚀 Painel de Oportunidades — TI & Redes</h1>
+                <p class="text-slate-400 text-sm">Carlos De Sá Lima • Técnico em Redes | Engenharia da Computação — UNIVESP (9º semestre)</p>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+                <span class="flex items-center gap-2 text-emerald-400"><span class="w-2 h-2 rounded-full bg-emerald-400 pulse"></span>Atualizado em: 13/11/2026</span>
+                <span class="bg-sky-600/20 text-sky-300 px-2 py-1 rounded text-xs">Últimos 60 dias</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-6">
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div class="card rounded-xl p-4 stat-card">
+                <p class="text-slate-400 text-sm">Vagas Recentes</p>
+                <p class="text-3xl font-bold text-white mt-1" id="totalVagas">6</p>
+                <p class="text-xs text-emerald-400 mt-1"><i class="fa fa-arrow-up"></i> Ativas</p>
+            </div>
+            <div class="card rounded-xl p-4">
+                <p class="text-slate-400 text-sm">Estágio</p>
+                <p class="text-3xl font-bold text-sky-400 mt-1">5</p>
+                <p class="text-xs text-slate-400 mt-1">Foco principal</p>
+            </div>
+            <div class="card rounded-xl p-4">
+                <p class="text-slate-400 text-sm">SP / Híbrido</p>
+                <p class="text-3xl font-bold text-purple-400 mt-1">4</p>
+                <p class="text-xs text-slate-400 mt-1">Região de atuação</p>
+            </div>
+            <div class="card rounded-xl p-4">
+                <p class="text-slate-400 text-sm">Áreas Alvo</p>
+                <p class="text-3xl font-bold text-amber-400 mt-1">7+</p>
+                <p class="text-xs text-slate-400 mt-1">Redes, Cloud, TI, Dados</p>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div class="lg:col-span-2 card rounded-xl p-5">
+                <h2 class="text-lg font-semibold mb-4 flex items-center gap-2"><i class="fa fa-line-chart text-sky-400"></i> Distribuição de Oportunidades</h2>
+                <div class="h-64"><canvas id="chartAreas"></canvas></div>
+            </div>
+            <div class="card rounded-xl p-5">
+                <h2 class="text-lg font-semibold mb-4 flex items-center gap-2"><i class="fa fa-map-marker text-rose-400"></i> Localização</h2>
+                <div class="h-64"><canvas id="chartLocal"></canvas></div>
+            </div>
+        </section>
+
+        <section class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <h2 class="text-xl font-semibold">💼 Vagas Publicadas nos Últimos 2 Meses</h2>
+            <div class="flex flex-wrap gap-2">
+                <button class="filter-btn active px-3 py-1 rounded-full bg-sky-600/30 text-sky-300 text-sm" data-filter="all">Todas</button>
+                <button class="filter-btn px-3 py-1 rounded-full bg-slate-700/50 text-slate-300 text-sm hover:bg-slate-600" data-filter="estagio">Estágio</button>
+                <button class="filter-btn px-3 py-1 rounded-full bg-slate-700/50 text-slate-300 text-sm hover:bg-slate-600" data-filter="redes">Redes</button>
+                <button class="filter-btn px-3 py-1 rounded-full bg-slate-700/50 text-slate-300 text-sm hover:bg-slate-600" data-filter="ti">Suporte/TI</button>
+            </div>
+        </section>
+
+        <section id="vagasContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Vagas carregadas via JS -->
+        </section>
+
+        <section class="mt-12 card rounded-xl p-6">
+            <h2 class="text-xl font-semibold mb-4">📋 Perfil do Candidato</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-sky-400 font-medium mb-2">Formação</h3>
+                    <ul class="text-sm space-y-1 text-slate-300">
+                        <li><i class="fa fa-check text-emerald-400 mr-2"></i>Engenharia da Computação — UNIVESP (2022–2027, 9º semestre)</li>
+                        <li><i class="fa fa-check text-emerald-400 mr-2"></i>Técnico em Redes de Computadores — ETEC Cônego José Bento (2020–2021)</li>
+                    </ul>
+                    <h3 class="text-sky-400 font-medium mt-4 mb-2">Competências Principais</h3>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        <span class="bg-sky-600/20 text-sky-300 px-2 py-1 rounded">Redes TCP/IP</span>
+                        <span class="bg-sky-600/20 text-sky-300 px-2 py-1 rounded">Linux</span>
+                        <span class="bg-sky-600/20 text-sky-300 px-2 py-1 rounded">AWS/Azure</span>
+                        <span class="bg-sky-600/20 text-sky-300 px-2 py-1 rounded">Python</span>
+                        <span class="bg-sky-600/20 text-sky-300 px-2 py-1 rounded">SQL</span>
+                        <span class="bg-sky-600/20 text-sky-300 px-2 py-1 rounded">Docker</span>
+                        <span class="bg-sky-600/20 text-sky-300 px-2 py-1 rounded">Git/GitHub</span>
+                        <span class="bg-sky-600/20 text-sky-300 px-2 py-1 rounded">Fibra Óptica</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-sky-400 font-medium mb-2">Experiência Relevante</h3>
+                    <p class="text-sm text-slate-300">Telecom Ability — Nov/2024 a Fev/2026: Instalação e manutenção de redes de fibra óptica</p>
+                    <h3 class="text-sky-400 font-medium mt-4 mb-2">Links</h3>
+                    <div class="space-y-2 text-sm">
+                        <a href="https://carlosdesalimasp-lang.github.io/curriculo/assets/curriculo.pdf" target="_blank" class="text-sky-400 hover:underline flex items-center gap-2"><i class="fa fa-file-pdf-o"></i> Currículo em PDF</a>
+                        <a href="https://carlosdesalimasp-lang.github.io/curriculo/apresentacao.html" target="_blank" class="text-sky-400 hover:underline flex items-center gap-2"><i class="fa fa-video-camera"></i> Apresentação</a>
+                        <a href="https://www.linkedin.com/in/carlosdesalima/" target="_blank" class="text-sky-400 hover:underline flex items-center gap-2"><i class="fa fa-linkedin-square"></i> LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-700/50 py-4 mt-10 text-center text-xs text-slate-500">
+        Jacareí — SP • Atualizado em 13/11/2026 • Vagas filtradas: publicação nos últimos 60 dias
+    </footer>
+
+    <script>
+        const vagas = [
+            {
+                id: 1, empresa: "IBM", titulo: "Estágio em Tecnologia em Redes de Computadores",
+                publicacao: "11/06/2026", dias: 53, local: "São Paulo — SP", modelo: "Presencial",
+                area: "Redes", bolsa: "A combinar", desc: "Infraestrutura de redes, monitoramento, troubleshooting",
+                link: "https://vagasflix.com/vaga/estagio-em-tecnologia-em-redes-de-computadores-sao-paulo-sp-2/", tags: ["estagio", "redes"]
+            },
+            {
+                id: 2, empresa: "Governo do Estado de SP / CIEE", titulo: "Estágio Programa ProATI — Tecnologia da Informação",
+                publicacao: "03/06/2026", dias: 61, local: "Jacareí e região — SP", modelo: "Presencial",
+                area: "Suporte TI / Infraestrutura", bolsa: "Até R$ 1.600,00", desc: "Atuação em escolas estaduais — manutenção de ambientes digitais",
+                link: "https://www.agenciasp.sp.gov.br/educacao/10-mil-vagas-de-estagio-sp-tecnologia/", tags: ["estagio", "ti", "redes"]
+            },
+            {
+                id: 3, empresa: "SOCICAM Administração, Projetos e Representações Ltda", titulo: "Estagiário de TI",
+                publicacao: "28/07/2026", dias: 26, local: "São Paulo — SP", modelo: "Híbrido",
+                area: "Suporte TI", bolsa: "A combinar", desc: "Suporte a usuários, manutenção, redes básicas, Windows/Linux",
+                link: "https://temosvagasbr.com/vagas/sp-sao-paulo-estagiario-de-ti/", tags: ["estagio", "ti"]
+            },
+            {
+                id: 4, empresa: "IFSP — Instituto Federal de SP", titulo: "Estagiário — Processo Seletivo Edital 30/2026",
+                publicacao: "21/05/2026", dias: 74, local: "Jacareí — SP", modelo: "Presencial",
+                area: "TI / Administrativo", bolsa: "Conforme edital", desc: "Apoio em setores acadêmicos e administrativos do campus",
+                link: "https://jcr.ifsp.edu.br/index.php/component/content/article/17-ultimas-noticias/2956-inscricoes-abertas-processo-seletivo-simplificado-para-recrutamento-de-estagiarios-ifsp-jacarei", tags: ["estagio", "ti"]
+            },
+            {
+                id: 5, empresa: "PoP-SC / RNP", titulo: "Estágio em Redes de Computadores — Edital 2026",
+                publicacao: "08/10/2026", dias: 36, local: "Florianópolis — SC", modelo: "Presencial",
+                area: "Redes / Pesquisa", bolsa: "R$ 1.500,00", desc: "Monitoramento de enlaces WAN/MAN, DNS, NTP, VPN — projetos de P&D",
+                link: "https://pop-sc.rnp.br/home/noticias/20261009/485", tags: ["estagio", "redes"]
+            },
+            {
+                id: 6, empresa: "CAEEP Estágios", titulo: "Estágio em Infraestrutura e Projetos Industriais",
+                publicacao: "02/11/2026", dias: 11, local: "São José dos Campos — SP", modelo: "Presencial",
+                area: "TI / Infraestrutura", bolsa: "R$ 1.300,00 + Aux. Transporte", desc: "Auxiliar em projetos de infraestrutura e desenvolvimento",
+                link: "https://homologacaoit.unip.br/estagiosecarreiras/vagas-exatas.aspx", tags: ["estagio", "ti"]
+            }
+        ];
+
+        function renderVagas(filter = 'all') {
+            const container = document.getElementById('vagasContainer');
+            const filtradas = filter === 'all' ? vagas : vagas.filter(v => v.tags.includes(filter));
+            container.innerHTML = filtradas.map(vaga => `
+                <div class="card rounded-xl p-5" data-tags="${vaga.tags.join(',')}">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="text-sm font-semibold text-sky-300">${vaga.empresa}</span>
+                        <span class="badge-new text-xs px-2 py-0.5 rounded-full text-white">${vaga.dias} dias</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2 text-white">${vaga.titulo}</h3>
+                    <div class="space-y-1 text-sm text-slate-400 mb-3">
+                        <p><i class="fa fa-map-marker w-4 text-rose-400"></i> ${vaga.local} • ${vaga.modelo}</p>
+                        <p><i class="fa fa-tag w-4 text-sky-400"></i> ${vaga.area}</p>
+                        <p><i class="fa fa-money w-4 text-emerald-400"></i> ${vaga.bolsa}</p>
+                    </div>
+                    <p class="text-sm text-slate-300 mb-4 line-clamp-2">${vaga.desc}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-slate-500">Publicado: ${vaga.publicacao}</span>
+                        <a href="${vaga.link}" target="_blank" class="btn-apply px-4 py-1.5 rounded-lg text-sm font-medium text-white">Inscrever-se <i class="fa fa-external-link ml-1 text-xs"></i></a>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('totalVagas').textContent = filtradas.length;
+        }
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('bg-sky-600/30','text-sky-300','active'));
+                btn.classList.add('bg-sky-600/30','text-sky-300','active');
+                renderVagas(btn.dataset.filter);
+            });
+        });
+
+        window.onload = function() {
+            renderVagas();
+            const ctxAreas = document.getElementById('chartAreas').getContext('2d');
+            const chartAreas = new Chart(ctxAreas, {
+                type: 'bar',
+                data: {
+                    labels: ['Redes', 'Suporte TI', 'Infraestrutura', 'Pesquisa/Projetos'],
+                    datasets: [{ label: 'Oportunidades', data: [3, 4, 2, 1], backgroundColor: ['#38bdf8','#22c55e','#a855f7','#f59e0b'], borderRadius: 8 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(148,163,184,0.1)' } }, x: { ticks: { color: '#94a3b8' }, grid: { display: false } } } }
+            });
+            const ctxLocal = document.getElementById('chartLocal').
